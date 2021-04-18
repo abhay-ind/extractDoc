@@ -1,0 +1,1690 @@
+package org.onosproject.net.device
+
+DeviceService.java
+int getDeviceCount()#" Returns the number of infrastructure devices known to the system.
+"
+default int getAvailableDeviceCount()#" Returns the number of currently available devices known to the system.
+"
+Iterable<Device> getDevices()#" Returns a collection of the currently known infrastructure
+      devices.
+"
+Iterable<Device> getDevices(Device.Type type)#" Returns a collection of the currently known infrastructure
+      devices by device type.
+"
+Iterable<Device> getAvailableDevices()#" Returns an iterable collection of all devices
+      currently available to the system.
+"
+Iterable<Device> getAvailableDevices(Device.Type type)#" Returns an iterable collection of all devices currently available to the system by device type.
+"
+Device getDevice(DeviceId deviceId)#" Returns the device with the specified identifier.
+"
+MastershipRole getRole(DeviceId deviceId)#" Returns the current mastership role for the specified device.
+"
+List<Port> getPorts(DeviceId deviceId)#" Returns the list of ports associated with the device.
+"
+List<PortStatistics> getPortStatistics(DeviceId deviceId)#" Returns the list of port statistics associated with the device.
+"
+List<PortStatistics> getPortDeltaStatistics(DeviceId deviceId)#" Returns the list of port delta statistics associated with the device.
+"
+default PortStatistics getStatisticsForPort(DeviceId deviceId, PortNumber portNumber)#" Returns the port specific port statistics associated with the device and port.
+"
+default PortStatistics getDeltaStatisticsForPort(DeviceId deviceId, PortNumber portNumber)#" Returns the port specific port delta statistics associated with the device and port.
+"
+Port getPort(DeviceId deviceId, PortNumber portNumber)#" Returns the port with the specified number and hosted by the given device.
+"
+default Port getPort(ConnectPoint cp)#" Returns the port with the specified connect point.
+"
+boolean isAvailable(DeviceId deviceId)#" Indicates whether or not the device is presently online and available.
+      Availability, unlike reachability, denotes whether ANY node in the
+      cluster can discover that this device is in an operational state,
+      this does not necessarily mean that there exists a node that can
+      control this device.
+"
+String localStatus(DeviceId deviceId)#" Indicates how long ago the device connected or disconnected from this
+      controller instance.
+               connected-to or disconnected-from this controller instance.
+"
+long getLastUpdatedInstant(DeviceId deviceId)#" Indicates the time at which the given device connected or disconnected
+      from this controller instance.
+"
+
+DeviceAdminService.java
+void removeDevice(DeviceId deviceId)#" Removes the device with the specified identifier.
+"
+void changePortState(DeviceId deviceId, PortNumber portNumber, boolean enable)#" Administratively enables or disables a port on a device.
+"
+
+DeviceClockService.java
+boolean isTimestampAvailable(DeviceId deviceId)#" Checks if this service can issue Timestamp for specified device.
+"
+Timestamp getTimestamp(DeviceId deviceId)#" Returns a new timestamp for the specified deviceId.
+"
+
+DeviceProviderService.java
+void deviceConnected(DeviceId deviceId, DeviceDescription deviceDescription)#" Signals the core that a device has connected or has been detected somehow.
+"
+void deviceDisconnected(DeviceId deviceId)#" Signals the core that a device has disconnected or is no longer reachable.
+"
+void updatePorts(DeviceId deviceId, List<PortDescription> portDescriptions)#" Updates information about all ports of a device. It is up to the core to
+      determine what has changed.
+"
+default void deletePort(DeviceId deviceId, PortDescription portDescription)#" Delete information about a single port of a device.
+      It is up to the core to determine what has changed.
+"
+void portStatusChanged(DeviceId deviceId, PortDescription portDescription)#" Notifies the core about port status change of a single port.
+"
+void receivedRoleReply(DeviceId deviceId, MastershipRole requested, MastershipRole response)#" Notifies the core about the result of a RoleRequest sent to a device.
+"
+void updatePortStatistics(DeviceId deviceId, Collection<PortStatistics> portStatistics)#" Updates statistics about all ports of a device.
+"
+package org.onosproject.store.service
+
+LogicalClockService.java
+Timestamp getTimestamp()#" Generates a new logical timestamp.
+"
+
+StorageService.java
+<K, V> EventuallyConsistentMapBuilder<K, V> eventuallyConsistentMapBuilder()#" Creates a new EventuallyConsistentMapBuilder.
+"
+<K, V> ConsistentMapBuilder<K, V> consistentMapBuilder()#" Creates a new ConsistentMapBuilder.
+"
+<V> DocumentTreeBuilder<V> documentTreeBuilder()#" Creates a new ConsistentMapBuilder.
+"
+<V> ConsistentTreeMapBuilder<V> consistentTreeMapBuilder()#" Creates a new {@code AsyncConsistentTreeMapBuilder}.
+"
+<K, V> ConsistentMultimapBuilder<K, V> consistentMultimapBuilder()#" Creates a new {@code AsyncConsistentSetMultimapBuilder}.
+"
+<K> AtomicCounterMapBuilder<K> atomicCounterMapBuilder()#" Creates a new {@code AtomicCounterMapBuilder}.
+"
+<E> DistributedSetBuilder<E> setBuilder()#" Creates a new DistributedSetBuilder.
+"
+AtomicCounterBuilder atomicCounterBuilder()#" Creates a new AtomicCounterBuilder.
+"
+AtomicIdGeneratorBuilder atomicIdGeneratorBuilder()#" Creates a new AtomicIdGeneratorBuilder.
+"
+<V> AtomicValueBuilder<V> atomicValueBuilder()#" Creates a new AtomicValueBuilder.
+"
+DistributedLockBuilder lockBuilder()#" Creates a new DistributedLockBuilder.
+"
+LeaderElectorBuilder leaderElectorBuilder()#" Creates a new LeaderElectorBuilder.
+"
+<T> TopicBuilder<T> topicBuilder()#" Creates a new TopicBuilder.
+"
+TransactionContextBuilder transactionContextBuilder()#" Creates a new transaction context builder.
+"
+default AsyncAtomicCounter getAsyncAtomicCounter(String name)#" Returns an instance of {@code AsyncAtomicCounter} with specified name.
+"
+default AsyncAtomicIdGenerator getAsyncAtomicIdGenerator(String name)#" Returns an instance of {@code AsyncAtomicIdGenerator} with specified name.
+"
+default AtomicCounter getAtomicCounter(String name)#" Returns an instance of {@code AtomicCounter} with specified name.
+"
+default AtomicIdGenerator getAtomicIdGenerator(String name)#" Returns an instance of {@code AtomicIdGenerator} with specified name.
+"
+<E> WorkQueue<E> getWorkQueue(String name, Serializer serializer)#" Returns an instance of {@code WorkQueue} with specified name.
+"
+<V> AsyncDocumentTree<V> getDocumentTree(String name, Serializer serializer)#" Returns an instance of {@code AsyncDocumentTree} with specified name.
+"
+Returns a set backed instance of {@code AsyncConsistentMultimap} with<K, V> AsyncConsistentMultimap<K, V> getAsyncSetMultimap(String name,Serializer serializer)#" the specified name.
+"
+<V> AsyncConsistentTreeMap<V> getAsyncTreeMap(String name,Serializer serializer)#" Returns an instance of {@code AsyncConsistentTreeMap} with the specified
+      name.
+"
+<T> Topic<T> getTopic(String name, Serializer serializer)#" Returns an instance of {@code Topic} with specified name.
+"
+
+PrimitiveService.java
+<K, V> EventuallyConsistentMapBuilder<K, V> eventuallyConsistentMapBuilder()#" Creates a new EventuallyConsistentMapBuilder.
+"
+<K, V> ConsistentMapBuilder<K, V> consistentMapBuilder()#" Creates a new ConsistentMapBuilder.
+"
+<V> DocumentTreeBuilder<V> documentTreeBuilder()#" Creates a new ConsistentMapBuilder.
+"
+<V> ConsistentTreeMapBuilder<V> consistentTreeMapBuilder()#" Creates a new {@code AsyncConsistentTreeMapBuilder}.
+"
+<K, V> ConsistentMultimapBuilder<K, V> consistentMultimapBuilder()#" Creates a new {@code AsyncConsistentSetMultimapBuilder}.
+"
+<K> AtomicCounterMapBuilder<K> atomicCounterMapBuilder()#" Creates a new {@code AtomicCounterMapBuilder}.
+"
+<E> DistributedSetBuilder<E> setBuilder()#" Creates a new DistributedSetBuilder.
+"
+AtomicCounterBuilder atomicCounterBuilder()#" Creates a new AtomicCounterBuilder.
+"
+AtomicIdGeneratorBuilder atomicIdGeneratorBuilder()#" Creates a new AtomicIdGeneratorBuilder.
+"
+<V> AtomicValueBuilder<V> atomicValueBuilder()#" Creates a new AtomicValueBuilder.
+"
+LeaderElectorBuilder leaderElectorBuilder()#" Creates a new LeaderElectorBuilder.
+"
+<T> TopicBuilder<T> topicBuilder()#" Creates a new TopicBuilder.
+"
+<E> WorkQueueBuilder<E> workQueueBuilder()#" Creates a new WorkQueueBuilder.
+"
+TransactionContextBuilder transactionContextBuilder()#" Creates a new transaction context builder.
+"
+default AsyncAtomicCounter getAsyncAtomicCounter(String name)#" Returns an instance of {@code AsyncAtomicCounter} with specified name.
+"
+default AsyncAtomicIdGenerator getAsyncAtomicIdGenerator(String name)#" Returns an instance of {@code AsyncAtomicIdGenerator} with specified name.
+"
+default AtomicCounter getAtomicCounter(String name)#" Returns an instance of {@code AtomicCounter} with specified name.
+"
+default AtomicIdGenerator getAtomicIdGenerator(String name)#" Returns an instance of {@code AtomicIdGenerator} with specified name.
+"
+<E> WorkQueue<E> getWorkQueue(String name, Serializer serializer)#" Returns an instance of {@code WorkQueue} with specified name.
+"
+<V> AsyncDocumentTree<V> getDocumentTree(String name, Serializer serializer)#" Returns an instance of {@code AsyncDocumentTree} with specified name.
+"
+Returns a set backed instance of {@code AsyncConsistentMultimap} with<K, V> AsyncConsistentMultimap<K, V> getAsyncSetMultimap(String name,Serializer serializer)#" the specified name.
+"
+<V> AsyncConsistentTreeMap<V> getAsyncTreeMap(String name,Serializer serializer)#" Returns an instance of {@code AsyncConsistentTreeMap} with the specified
+      name.
+"
+<T> Topic<T> getTopic(String name, Serializer serializer)#" Returns an instance of {@code Topic} with specified name.
+"
+
+StorageAdminService.java
+@DeprecatedList<PartitionInfo> getPartitionInfo()#" Returns information about all partitions in the system.
+      @deprecated 1.5.0 Falcon Release
+"
+@DeprecatedList<MapInfo> getMapInfo()#" Returns information about all the consistent maps in the system.
+      @deprecated 1.5.0 Falcon Release
+"
+Map<String, Long> getCounters()#" Returns information about all the atomic counters in the system.
+"
+Map<String, WorkQueueStats> getQueueStats()#" Returns statistics for all the work queues in the system.
+"
+Collection<TransactionId> getPendingTransactions()#" Returns all pending transactions.
+"
+package org.onosproject.ui
+
+UiTopoLayoutService.java
+UiTopoLayout getRootLayout()#" Returns the top-level root layout, which always exists and cannot
+      be removed or associated directly with a region.
+"
+Set<UiTopoLayout> getLayouts()#" Returns the set of available layouts (not including the root layout).
+"
+boolean addLayout(UiTopoLayout layout)#" Adds a layout to the system or updates an existing one.
+"
+UiTopoLayout getLayout(UiTopoLayoutId layoutId)#" Returns the layout with the specified identifier.
+"
+UiTopoLayout getLayout(RegionId regionId)#" Returns the layout which has the backing region identified by
+      the given region identifier.
+"
+Set<UiTopoLayout> getPeerLayouts(UiTopoLayoutId layoutId)#" Returns the set of peer layouts of the specified layout. That is,
+      those layouts that share the same parent.
+"
+Set<UiTopoLayout> getChildren(UiTopoLayoutId layoutId)#" Returns the set of the child layouts of the specified layout.
+"
+boolean removeLayout(UiTopoLayout layout)#" Removes a layout from the system.
+"
+
+UiTokenService.java
+UiSessionToken issueToken(String username)#" Issues a session token. The service will generate a new token,
+      publish it in the distributed map of valid UI session tokens, and
+      return it to the caller.
+"
+void revokeToken(UiSessionToken token)#" Revokes the specified session token. The service will remove the token
+      from the distributed map of valid UI session tokens.
+"
+boolean isTokenValid(UiSessionToken token)#" Returns true if the specified token is currently in the distributed
+      map of valid UI session tokens.
+"
+
+UiExtensionService.java
+void register(UiExtension extension)#" Registers the specified user interface extension.
+"
+void unregister(UiExtension extension)#" Unregisters the specified user interface extension.
+"
+default void register(UiGlyphFactory factory)#" Registers the specified user interface glyph factory.
+"
+default void unregister(UiGlyphFactory factory)#" Unregisters the specified user interface glyph factory.
+"
+List<UiExtension> getExtensions()#" Returns the list of registered user interface extensions.
+"
+UiExtension getViewExtension(String viewId)#" Returns the user interface extension that contributed the specified view.
+"
+default List<UiGlyph> getGlyphs()#" Returns the list of registered user interface glyphs.
+"
+LionBundle getNavLionBundle()#" Returns the navigation pane localization bundle.
+"
+void refreshModel()#" Refreshes the backing model.
+"
+
+UiPreferencesService.java
+Set<String> getUserNames()#" Returns the list of user names that have user preferences available.
+"
+Map<String, ObjectNode> getPreferences(String userName)#" Returns an immutable copy of the preferences for the specified user.
+"
+ObjectNode getPreference(String username, String key)#" Returns the named preference for the specified user.
+      If no such preferences exist, null will be returned.
+"
+void setPreference(String username, String key, ObjectNode value)#" Sets or clears the named preference for the specified user.
+"
+package org.onosproject.net.intf
+
+InterfaceService.java
+Set<Interface> getInterfaces()#" Returns the set of all interfaces in the system.
+"
+Interface getInterfaceByName(ConnectPoint connectPoint, String name)#" Returns the interface with the given name.
+"
+Set<Interface> getInterfacesByPort(ConnectPoint port)#" Returns the set of interfaces configured on the given port.
+"
+Set<Interface> getInterfacesByIp(IpAddress ip)#" Returns the set of interfaces with the given IP address.
+"
+Set<Interface> getInterfacesByVlan(VlanId vlan)#" Returns the set of interfaces in the given VLAN.
+"
+Interface getMatchingInterface(IpAddress ip)#" Returns an interface that has an address that is in the same subnet as
+      the given IP address.
+"
+Set<Interface> getMatchingInterfaces(IpAddress ip)#" Returns all interfaces that have an address that is in the same
+      subnet as the given IP address.
+"
+default VlanId getUntaggedVlanId(ConnectPoint connectPoint)#" Returns untagged VLAN configured on given connect point.
+      <p>
+      Only returns the first match if there are multiple untagged VLAN configured
+      on the connect point.
+"
+default Set<VlanId> getTaggedVlanId(ConnectPoint connectPoint)#" Returns tagged VLAN configured on given connect point.
+      <p>
+      Returns all matches if there are multiple tagged VLAN configured
+      on the connect point.
+"
+default VlanId getNativeVlanId(ConnectPoint connectPoint)#" Returns native VLAN configured on given connect point.
+      <p>
+      Only returns the first match if there are multiple native VLAN configured
+      on the connect point.
+"
+default boolean isConfigured(ConnectPoint connectPoint)#" Returns true if given connectPoint has an IP address or vlan configured
+      on any of its interfaces.
+"
+default boolean inUse(VlanId vlanId)#" Returns true if given vlanId is in use due to configuration on any of the
+      interfaces in the system.
+"
+
+InterfaceAdminService.java
+void add(Interface intf)#" Adds a new interface configuration to the system.
+"
+boolean remove(ConnectPoint connectPoint, String name)#" Removes an interface configuration from the system.
+"
+package org.onosproject.net.flowobjective
+
+FlowObjectiveService.java
+void filter(DeviceId deviceId, FilteringObjective filteringObjective)#" Installs the filtering rules onto the specified device.
+"
+void forward(DeviceId deviceId, ForwardingObjective forwardingObjective)#" Installs the forwarding rules onto the specified device.
+"
+void next(DeviceId deviceId, NextObjective nextObjective)#" Installs the next hop elements into the specified device.
+"
+int allocateNextId()#" Obtains a globally unique next objective.
+"
+void initPolicy(String policy)#" Provides a composition policy expression.
+      <p>
+      WARNING: This method is a no-op in the default implementation.
+"
+default void apply(DeviceId deviceId, Objective objective)#" Installs the objective onto the specified device.
+"
+List<String> getNextMappings()#" Retrieve all nextObjective to group mappings known to this onos instance,
+      in a format meant for display on the CLI, to help with debugging. Applications
+      are only aware of next-Ids, while the group sub-system is only aware of group-ids.
+      This method fills in the gap by providing information on the mapping
+      between next-ids and group-ids done by device-drivers.
+              information on next-id to group-id mapping. Consumed by the
+              "obj-next-ids" command on the CLI.
+"
+List<String> getPendingFlowObjectives()#" Retrieve all nextObjectives that are waiting to hear back from device
+      drivers, and the forwarding-objectives or next-objectives that are waiting
+      on the successful completion of the original next-objectives. Consumed by the
+      "obj-pending-nexts" command on the CLI.
+               next-ids awaiting confirmation from the device-drivers.
+"
+default ListMultimap<FilteringObjQueueKey, Objective> getFilteringObjQueue()#" Returns all filtering objective that are waiting for the completion of previous objective
+      with the same FilteringObjQueueKey.
+"
+default ListMultimap<ForwardingObjQueueKey, Objective> getForwardingObjQueue()#" Returns all forwarding objective that are waiting for the completion of previous objective
+      with the same ForwardingObjQueueKey.
+"
+default ListMultimap<NextObjQueueKey, Objective> getNextObjQueue()#" Returns all next objective that are waiting for the completion of previous objective
+      with the same NextObjQueueKey.
+"
+package org.onosproject.net.mcast
+
+MulticastRouteService.java
+void add(McastRoute route)#" Adds a route to the information base.
+"
+void remove(McastRoute route)#" Removes a route from the information base.
+"
+Set<McastRoute> getRoutes()#" Gets all multicast routes in the system.
+"
+void addSource(McastRoute route, ConnectPoint connectPoint)#" Adds a source connection to the route from where the
+      data stream is originating.
+"
+void addSink(McastRoute route, ConnectPoint connectPoint)#" Adds a sink to the route to which a data stream should be
+      sent to.
+"
+void removeSink(McastRoute route, ConnectPoint connectPoint)#" Removes a sink from the route.
+"
+ConnectPoint fetchSource(McastRoute route)#" Find the data source association for this multicast route.
+"
+Set<ConnectPoint> fetchSinks(McastRoute route)#" Find the list of sinks for this route.
+"
+package org.onosproject.app
+
+ApplicationService.java
+Set<Application> getApplications()#" Returns the set of all installed applications.
+"
+ApplicationId getId(String name)#" Returns the registered id of the application with the given name.
+"
+Application getApplication(ApplicationId appId)#" Returns the application with the supplied application identifier.
+"
+ApplicationState getState(ApplicationId appId)#" Return the application state.
+"
+Set<Permission> getPermissions(ApplicationId appId)#" Returns the permissions currently granted to the applications.
+"
+void registerDeactivateHook(ApplicationId appId, Runnable hook)#" Registers application pre-deactivation processing hook.
+"
+default InputStream getApplicationArchive(ApplicationId appId)#" Returns stream that contains the application OARJAR file contents.
+"
+
+ApplicationAdminService.java
+Application install(InputStream appDescStream)#" Installs the application contained in the specified application archive
+      input stream. This can be either a ZIP stream containing a compressed
+      application archive or a plain XML stream containing just the
+      {@code app.xml} application descriptor file.
+      @throws org.onosproject.app.ApplicationException if unable to read the app archive stream
+"
+void uninstall(ApplicationId appId)#" Uninstalls the specified application.
+"
+void activate(ApplicationId appId)#" Activates the specified application.
+"
+void deactivate(ApplicationId appId)#" Deactivates the specified application.
+"
+void setPermissions(ApplicationId appId, Set<Permission> permissions)#" Updates the permissions granted to the applications.
+"
+package org.onosproject.component
+
+ComponentService.java
+void activate(ApplicationId appId, String name)#" Activates the component identified by the given name. If the component
+      is not currently available, it will be activated when it becomes
+      available.
+"
+void deactivate(ApplicationId appId, String name)#" Deactivates the component identified by the given name.
+"
+package org.onosproject.store.flow
+
+ReplicaInfoService.java
+ReplicaInfo getReplicaInfoFor(DeviceId deviceId)#" Returns the placement information for given Device.
+"
+void addListener(ReplicaInfoEventListener listener)#" Adds the specified replica placement info change listener.
+"
+void removeListener(ReplicaInfoEventListener listener)#" Removes the specified replica placement info change listener.
+"
+package org.onosproject.net.region
+
+RegionService.java
+Set<Region> getRegions()#" Returns set of all regions.
+"
+Region getRegion(RegionId regionId)#" Returns the region with the specified identifier.
+      @throws org.onlab.util.ItemNotFoundException if region with given
+                                                   id does not exist
+"
+Region getRegionForDevice(DeviceId deviceId)#" Returns the region to which the specified device belongs.
+"
+Set<DeviceId> getRegionDevices(RegionId regionId)#" Returns the set of devices that belong to the specified region.
+"
+Set<HostId> getRegionHosts(RegionId regionId)#" Returns the set of hosts that belong to the specified region.
+"
+
+RegionAdminService.java
+Region createRegion(RegionId regionId, String name, Region.Type type,List<Set<NodeId>> masterNodeIds)#" Creates a new region using the supplied data.
+      @throws IllegalArgumentException if region already exists
+"
+Region updateRegion(RegionId regionId, String name, Region.Type type,List<Set<NodeId>> masterNodeIds)#" Update the specified region using the new set of data.
+"
+void removeRegion(RegionId regionId)#" Removes the specified region using the new set of data.
+"
+void addDevices(RegionId regionId, Collection<DeviceId> deviceIds)#" Adds the specified collection of devices to the region.
+"
+void removeDevices(RegionId regionId, Collection<DeviceId> deviceIds)#" Removes the specified collection of devices from the region.
+"
+package org.onosproject.security
+
+SecurityAdminService.java
+boolean isSecured(ApplicationId appId)#" Returns true if security policy has been enforced to specified application.
+"
+void review(ApplicationId appId)#" Changes SecurityModeState of specified application to REVIEWED.
+"
+void acceptPolicy(ApplicationId appId)#" Accepts and enforces security policy to specified application.
+"
+void register(ApplicationId appId)#" Register application to SM-ONOS subsystem.
+"
+Map<Integer, List<Permission>> getPrintableSpecifiedPermissions(ApplicationId appId)#" Returns sorted developer specified permission Map.
+"
+Map<Integer, List<Permission>> getPrintableGrantedPermissions(ApplicationId appId)#" Returns sorted granted permission Map.
+"
+Map<Integer, List<Permission>> getPrintableRequestedPermissions(ApplicationId appId)#" Returns sorted requested permission Map.
+"
+package org.onosproject.cfg
+
+ComponentConfigService.java
+Set<String> getComponentNames()#" Returns names of all components that have registered their
+      configuration properties.
+"
+void registerProperties(Class<?> componentClass)#" Registers configuration properties for the specified component.
+"
+void unregisterProperties(Class<?> componentClass, boolean clear)#" Unregisters configuration properties for the specified component.
+"
+Set<ConfigProperty> getProperties(String componentName)#" Returns configuration properties of the named components.
+"
+void setProperty(String componentName, String name, String value)#" Sets the value of the specified configuration property.
+"
+void preSetProperty(String componentName, String name, String value)#" Presets the value of the specified configuration property, regardless
+      of the component's state.
+"
+void unsetProperty(String componentName, String name)#" Clears the value of the specified configuration property thus making
+      the property take on its default value.
+"
+ConfigProperty getProperty(String componentName, String attribute)#" Returns configuration property of the named components.
+"
+package org.onosproject.net.pi.service
+
+PiPipeconfService.java
+void register(PiPipeconf pipeconf)#" Registers the given pipeconf.
+      @throws IllegalStateException if the same pipeconf identifier is already
+                                    registered.
+"
+void remove(PiPipeconfId pipeconfId)#" Unregisters the Pipeconf identified by the given PiPipeconfId.
+      Unregistering a Pipeconf removes it from the ONOS controller, thus making
+      it un-capable of controlling (e.g installing flow rules) the devices that
+      have the pipeconf's P4 program deployed. For now this method DOES NOT
+      remove the P4 program from the devices.
+      @throws IllegalStateException if the same pipeconf identifier is already
+                                    registered.
+"
+Iterable<PiPipeconf> getPipeconfs()#" Returns all pipeconfs registered.
+"
+Optional<PiPipeconf> getPipeconf(PiPipeconfId id)#" Returns the pipeconf instance associated with the given identifier, if
+      present. If not present, it means that no pipeconf with such identifier
+      has been registered so far.
+"
+void bindToDevice(PiPipeconfId pipeconfId, DeviceId deviceId)#" Signals that the given pipeconf is associated to the given infrastructure
+      device. As a result of this method, the pipeconf for the given device can
+      be later retrieved using {@link #ofDevice(DeviceId)}
+"
+String getMergedDriver(DeviceId deviceId, PiPipeconfId pipeconfId)#" Returns the name of a driver that is equivalent to the base driver of the
+      given device plus all the pipeline-specific behaviors exposed by the
+      given pipeconf (previously registered using {@link
+      #register(PiPipeconf)}). If such driver does not exist, this method
+      creates one and registers is with all necessary ONOS subsystems, such
+      that the returned name can be used to retrieve the driver instance using
+      {@link org.onosproject.net.driver.DriverService#getDriver(String)}.
+      <p>
+      This method needs to be called on all nodes of the cluster that wants to
+      use such merged driver.
+      <p>
+      Returns null if such merged driver cannot be created.
+"
+Optional<PiPipeconfId> ofDevice(DeviceId deviceId)#" Returns the pipeconf identifier currently associated with the given
+      device identifier, if present. If not present, it means no pipeconf has
+      been associated with that device so far.
+"
+
+PiPipeconfWatchdogService.java
+#" Status of a device pipeline.
+"
+#" The device pipeline is ready to process packets.
+"
+#" The status is unknown and the device might not be able to process
+          packets yet.
+"
+void triggerProbe(DeviceId deviceId)#" Asynchronously triggers a probe task that checks the device pipeline
+      status and, if required, configures it with the pipeconf associated to
+      this device (via {@link PiPipeconfService#bindToDevice(PiPipeconfId,
+      DeviceId)}).
+"
+PipelineStatus getStatus(DeviceId deviceId)#" Returns the last known pipeline status of the given device.
+"
+
+PiTranslationService.java
+PiFlowRuleTranslator flowRuleTranslator()#" Returns a flow rule translator.
+"
+PiGroupTranslator groupTranslator()#" Returns a group translator.
+"
+PiMeterTranslator meterTranslator()#" Returns a meter translator.
+"
+PiMulticastGroupTranslator multicastGroupTranslator()#" Returns a group translator for packet replication engine (PRE)
+      multicast groups.
+"
+package org.onosproject.net.provider
+
+ProviderService.java
+P provider()#" Returns the provider to which this service has been issued.
+"
+package org.onosproject.net.domain
+
+DomainService.java
+Set<DomainId> getDomainIds()#" Returns the set of domains that have an associated topology.
+"
+Set<DeviceId> getDeviceIds(DomainId domainId)#" Returns the set of the device ids of the specified domain.
+"
+DomainId getDomain(DeviceId deviceId)#" Returns a domain given a device id.
+"
+
+DomainIntentService.java
+void sumbit(DomainIntentOperations domainOperations)#" Submit a batch operation of domain intent to be send to the target domain
+      through the proper driver.
+"
+package org.onosproject.net.link
+
+LinkAdminService.java
+void removeLinks(ConnectPoint connectPoint)#" Removes all infrastructure links leading to and from the
+      specified connection point.
+"
+void removeLinks(DeviceId deviceId)#" Removes all infrastructure links leading to and from the
+      specified device.
+"
+void removeLink(ConnectPoint src, ConnectPoint dst)#" Removes all links between between the specified src and
+      dst connection points.
+"
+
+LinkService.java
+int getLinkCount()#" Returns the count of all known infrastructure links.
+"
+Iterable<Link> getLinks()#" Returns a collection of all known infrastructure links.
+"
+Iterable<Link> getActiveLinks()#" Returns a collection of all active infrastructure links.
+"
+Set<Link> getDeviceLinks(DeviceId deviceId)#" Returns set of all infrastructure links leading to and from the
+      specified device.
+"
+Set<Link> getDeviceEgressLinks(DeviceId deviceId)#" Returns set of all infrastructure links leading from the specified device.
+"
+Set<Link> getDeviceIngressLinks(DeviceId deviceId)#" Returns set of all infrastructure links leading to the specified device.
+"
+Set<Link> getLinks(ConnectPoint connectPoint)#" Returns set of all infrastructure links leading to and from the
+      specified connection point.
+"
+Set<Link> getEgressLinks(ConnectPoint connectPoint)#" Returns set of all infrastructure links leading from the specified
+      connection point.
+"
+Set<Link> getIngressLinks(ConnectPoint connectPoint)#" Returns set of all infrastructure links leading to the specified
+      connection point.
+"
+Link getLink(ConnectPoint src, ConnectPoint dst)#" Returns the infrastructure links between the specified source
+      and destination connection points.
+"
+
+LinkProviderService.java
+void linkDetected(LinkDescription linkDescription)#" Signals that an infrastructure link has been detected.
+"
+void linkVanished(LinkDescription linkDescription)#" Signals that an infrastructure link has disappeared.
+"
+void linksVanished(ConnectPoint connectPoint)#" Signals that infrastructure links associated with the specified
+      connect point have vanished.
+"
+void linksVanished(DeviceId deviceId)#" Signals that infrastructure links associated with the specified
+      device have vanished.
+"
+package org.onosproject.cluster
+
+ClusterMetadataProviderService.java
+void clusterMetadataChanged(Versioned<ClusterMetadata> newMetadata)#" Notifies about a change to cluster metadata.
+"
+void newActiveMemberForPartition(PartitionId partitionId, NodeId nodeId)#" Notifies that a node just become the active member of a partition.
+"
+
+LeadershipAdminService.java
+boolean transferLeadership(String topic, NodeId nodeId)#" Attempts to assign leadership for a topic to a specified node.
+      if {@code nodeId} is not one of the candidates for for the topic.
+"
+boolean promoteToTopOfCandidateList(String topic, NodeId nodeId)#" Make a node to be the next leader by promoting it to top of candidate list.
+      if {@code nodeId} is not one of the candidates for for the topic.
+"
+void unregister(NodeId nodeId)#" Removes all active leadership registrations for a given node.
+      <p>
+      This method will also evict the node from leaderships that it currently owns.
+"
+Map<String, Leadership> getLeaderBoard()#" Returns the current leader board.
+"
+
+ClusterMetadataService.java
+ClusterMetadata getClusterMetadata()#" Returns the current cluster metadata.
+"
+ControllerNode getLocalNode()#" Returns the {@link ControllerNode controller node} representing this instance.
+"
+
+ProxyService.java
+<T> ProxyFactory<T> getProxyFactory(Class<T> type, Serializer serializer)#" Returns a new proxy factory for the given type.
+      <p>
+      The proxy {@code type} passed to this method must be an interface. The proxy factory can be used to construct
+      proxy instances for different nodes in the cluster.
+      @throws IllegalArgumentException if the {@code type} is not an interface
+"
+<T> void registerProxyService(Class<? super T> type, T proxy, Serializer serializer)#" Registers a proxy service.
+      <p>
+      The proxy {@code type} passed to this method must be an interface. The {@code proxy} should be an implementation
+      of that interface on which methods will be called when proxy calls from other nodes are received.
+      @throws IllegalArgumentException if the {@code type} is not an interface
+"
+void unregisterProxyService(Class<?> type)#" Unregisters the proxy service of the given type.
+      <p>
+      Once the proxy service has been unregistered, calls to the proxy instance on this node will fail.
+"
+
+LeadershipService.java
+default NodeId getLeader(String topic)#" Returns the {@link NodeId node identifier} that is the current leader for a topic.
+"
+Leadership getLeadership(String topic)#" Returns the current {@link Leadership leadership} for a topic.
+"
+Set<String> ownedTopics(NodeId nodeId)#" Returns the set of topics owned by the specified {@link NodeId node}.
+"
+Leadership runForLeadership(String topic)#" Enters a leadership contest.
+"
+void withdraw(String topic)#" Withdraws from a leadership contest.
+"
+default List<NodeId> getCandidates(String topic)#" Returns the candidate nodes for a given topic.
+"
+
+ClusterService.java
+ControllerNode getLocalNode()#" Returns the local controller node.
+"
+Set<ControllerNode> getNodes()#" Returns the set of current cluster members.
+"
+Set<Node> getConsensusNodes()#" Returns the set of consensus nodes.
+"
+ControllerNode getNode(NodeId nodeId)#" Returns the specified controller node.
+"
+ControllerNode.State getState(NodeId nodeId)#" Returns the availability state of the specified controller node. Note
+      that this does not imply that all the core and application components
+      have been fully activated; only that the node has joined the cluster.
+"
+Version getVersion(NodeId nodeId)#" Returns the version of the given controller node.
+"
+default Instant getLastUpdatedInstant(NodeId nodeId)#" Returns the system time when the availability state was last updated.
+"
+default String localStatus(NodeId nodeId)#" Returns a human readable form of the system time when the availability state was last updated.
+"
+@Deprecateddefault DateTime getLastUpdated(NodeId nodeId)#" Returns the system time when the availability state was last updated.
+      @deprecated in 1.12.0
+"
+
+MembershipService.java
+Member getLocalMember()#" Returns the local member.
+"
+MembershipGroup getLocalGroup()#" Returns the group associated with the local member.
+"
+Set<Member> getMembers()#" Returns the set of current cluster members in the local group.
+"
+Collection<MembershipGroup> getGroups()#" Returns the set of membership groups in the cluster.
+"
+MembershipGroup getGroup(Version version)#" Returns the membership group for the given version.
+"
+Set<Member> getMembers(Version version)#" Returns the set of members in the given version.
+"
+Member getMember(NodeId nodeId)#" Returns the specified controller node.
+"
+
+ClusterAdminService.java
+@Deprecatedvoid formCluster(Set<ControllerNode> nodes)#" Forms cluster configuration based on the specified set of node
+      information.&nbsp; This method resets and restarts the controller
+      instance.
+      @deprecated since 1.14
+"
+@Deprecatedvoid formCluster(Set<ControllerNode> nodes, int partitionSize)#" Forms cluster configuration based on the specified set of node
+      information.&nbsp; This method resets and restarts the controller
+      instance.
+      @deprecated since 1.14
+"
+@DeprecatedControllerNode addNode(NodeId nodeId, IpAddress ip, int tcpPort)#" Adds a new controller node to the cluster.
+      @deprecated since 1.14
+"
+@Deprecatedvoid removeNode(NodeId nodeId)#" Removes the specified node from the cluster node list.
+      @deprecated since 1.14
+"
+void markFullyStarted(boolean started)#" Marks the current node as fully started or not.
+"
+
+ClusterMetadataAdminService.java
+void setClusterMetadata(ClusterMetadata metadata)#" Updates the cluster metadata.
+"
+package org.onosproject.mastership
+
+MastershipService.java
+MastershipRole getLocalRole(DeviceId deviceId)#" Returns the role of the local node for the specified device, without
+      triggering master selection.
+"
+default boolean isLocalMaster(DeviceId deviceId)#" Returns true if the local controller is the Master for the specified deviceId.
+"
+CompletableFuture<MastershipRole> requestRoleFor(DeviceId deviceId)#" Returns the mastership status of the local controller for a given
+      device forcing master selection if necessary.
+"
+default MastershipRole requestRoleForSync(DeviceId deviceId)#" Synchronous version of requestRoleFor. Returns the mastership status of
+      the local controller for a given device forcing master selection if necessary.
+"
+CompletableFuture<Void> relinquishMastership(DeviceId deviceId)#" Abandons mastership of the specified device on the local node thus
+      forcing selection of a new master. If the local node is not a master
+      for this device, no master selection will occur.
+"
+default void relinquishMastershipSync(DeviceId deviceId)#" Synchronous version of relinquishMastership. Abandons mastership of the
+      specified device on the local node thus forcing selection of a new master.
+      If the local node is not a master for this device, no master selection will occur.
+"
+NodeId getMasterFor(DeviceId deviceId)#" Returns the current master for a given device.
+"
+RoleInfo getNodesFor(DeviceId deviceId)#" Returns controllers connected to a given device, in order of
+      preference. The first entry in the list is the current master.
+"
+MastershipInfo getMastershipFor(DeviceId deviceId)#" Returns the mastership info for the given device.
+"
+@DeprecatedSet<DeviceId> getDevicesOf(NodeId nodeId)#" Returns the devices for which a controller is master.
+      <p>
+      Returned Set may contain DeviceId which no longer exist in the system.
+      @deprecated 1.6.0 Goldeneye release.
+"
+
+MastershipProxyService.java
+<T> MastershipProxyFactory<T> getProxyFactory(Class<T> type, Serializer serializer)#" Returns a proxy factory for the given type.
+      <p>
+      The proxy {@code type} passed to this method must be an interface. The proxy factory can be used to construct
+      mastership-based proxy instances for different devices.
+      @throws IllegalArgumentException if the {@code type} is not an interface
+"
+<T> void registerProxyService(Class<? super T> type, T proxy, Serializer serializer)#" Registers a proxy service.
+      <p>
+      The proxy {@code type} passed to this method must be an interface. The {@code proxy} should be an implementation
+      of that interface on which methods will be called when proxy calls from other nodes are received.
+      @throws IllegalArgumentException if the {@code type} is not an interface
+"
+void unregisterProxyService(Class<?> type)#" Unregisters the proxy service of the given type.
+      <p>
+      Once the proxy service has been unregistered, calls to the proxy instance on this node will fail.
+"
+
+MastershipTermService.java
+MastershipTerm getMastershipTerm(DeviceId deviceId)#" Returns the term number of mastership change occurred for given device.
+"
+
+MastershipAdminService.java
+CompletableFuture<Void> setRole(NodeId instance, DeviceId deviceId, MastershipRole role)#" Applies the current mastership role for the specified device.
+"
+default void setRoleSync(NodeId instance, DeviceId deviceId, MastershipRole role)#" Synchronous version of setRole.
+      Applies the current mastership role for the specified device.
+"
+void balanceRoles()#" Balances the mastership to be shared as evenly as possibly by all
+      online instances.
+"
+package org.onosproject.net.key
+
+DeviceKeyService.java
+Collection<DeviceKey> getDeviceKeys()#" Returns all device keys.
+"
+DeviceKey getDeviceKey(DeviceKeyId deviceKeyId)#" Returns the device key using a device key identifier.
+"
+
+DeviceKeyAdminService.java
+void addKey(DeviceKey deviceKey)#" Adds a new device key to the store.
+"
+void removeKey(DeviceKeyId id)#" Removes a device key from the store using the device
+      key identifier.
+"
+package org.onosproject.persistence
+
+PersistenceService.java
+<K, V> PersistentMapBuilder<K, V> persistentMapBuilder()#" A builder for the creation of local persistent maps backed by disk.
+"
+<E> PersistentSetBuilder<E> persistentSetBuilder()#" A builder for the creation of local persistent sets backed by disk.
+"
+package org.onosproject.net.edge
+
+EdgePortService.java
+boolean isEdgePoint(ConnectPoint point)#" Indicates whether or not the specified connection point is an edge point.
+"
+Iterable<ConnectPoint> getEdgePoints()#" Returns a collection of all edge point within the current topology.
+"
+Iterable<ConnectPoint> getEdgePoints(DeviceId deviceId)#" Returns a collection of all edge point for the specified device.
+"
+void emitPacket(ByteBuffer data, Optional<TrafficTreatment> treatment)#" Emits the specified packet, with optional treatment to all edge ports.
+"
+void emitPacket(DeviceId deviceId, ByteBuffer data,Optional<TrafficTreatment> treatment)#" Emits the specified packet, with optional treatment to all edge ports.
+"
+package org.onosproject.net.intent
+
+IntentExtensionService.java
+<T extends Intent> void registerCompiler(Class<T> cls, IntentCompiler<T> compiler)#" Registers the specified compiler for the given intent class.
+"
+<T extends Intent> void unregisterCompiler(Class<T> cls)#" Unregisters the compiler for the specified intent class.
+"
+Map<Class<? extends Intent>, IntentCompiler<? extends Intent>> getCompilers()#" Returns immutable set of bindings of currently registered intent compilers.
+"
+<T extends Intent> void registerInstaller(Class<T> cls, IntentInstaller<T> installer)#" Registers the specific installer for the given intent class.
+"
+<T extends Intent> void unregisterInstaller(Class<T> cls)#" Unregisters the installer for the specific intent class.
+"
+Map<Class<? extends Intent>, IntentInstaller<? extends Intent>> getInstallers()#" Returns immutable set of binding of currently registered intent installers.
+"
+<T extends Intent> IntentInstaller<T> getInstaller(Class<T> cls)#" Returns the installer for specific installable intent.
+"
+
+IntentService.java
+void submit(Intent intent)#" Submits an intent into the system.
+      <p>
+      This is an asynchronous request meaning that any compiling or
+      installation activities may be done at later time.
+      <p>
+"
+void withdraw(Intent intent)#" Withdraws an intent from the system.
+      <p>
+      This is an asynchronous request meaning that the environment may be
+      affected at later time.
+      <p>
+"
+void purge(Intent intent)#" Purges a specific intent from the system if it is <b>FAILED<b> or
+      <b>WITHDRAWN<b>. Otherwise, the intent remains in its current state.
+"
+Intent getIntent(Key key)#" Fetches an intent based on its key.
+"
+Iterable<Intent> getIntents()#" Returns an iterable of intents currently in the system.
+"
+void addPending(IntentData intentData)#" Adds an intent data object to the pending map for processing.
+      <p>
+      This method is intended to only be called by core components, not
+      applications.
+      <p>
+"
+Iterable<IntentData> getIntentData()#" Returns an iterable of intent data objects currently in the system.
+"
+long getIntentCount()#" Returns the number of intents currently in the system.
+"
+IntentState getIntentState(Key intentKey)#" Retrieves the state of an intent by its identifier.
+      found
+"
+List<Intent> getInstallableIntents(Key intentKey)#" Returns the list of the installable events associated with the specified
+      top-level intent.
+"
+boolean isLocal(Key intentKey)#" Signifies whether the local node is responsible for processing the given
+      intent key.
+      otherwise false
+"
+Iterable<Intent> getPending()#" Returns the list of intent requests pending processing.
+"
+
+ObjectiveTrackerService.java
+void setDelegate(TopologyChangeDelegate delegate)#" Sets a topology change delegate.
+"
+void unsetDelegate(TopologyChangeDelegate delegate)#" Unsets topology change delegate.
+"
+void addTrackedResources(Key intentKey,Collection<NetworkResource> resources)#" Adds a path flow to be tracked.
+"
+void removeTrackedResources(Key intentKey,Collection<NetworkResource> resources)#" Removes a path flow to be tracked.
+"
+void trackIntent(IntentData intentData)#" Submits the specified intent data to be tracked.
+"
+
+WorkPartitionService.java
+<K> boolean isMine(K id, Function<K, Long> hasher)#" Returns whether a given identifier maps to a partition owned by this
+      instance.
+              by this instance, otherwise false
+"
+<K> NodeId getLeader(K id, Function<K, Long> hasher)#" Returns the owner for a given identifier.
+"
+
+IntentClockService.java
+Timestamp getTimestamp(IntentId intentId)#" Returns a new timestamp for the specified intent.
+"
+package org.onosproject.upgrade
+
+UpgradeService.java
+Upgrade getState()#" Returns the current upgrade state.
+"
+boolean isUpgrading()#" Returns whether an upgrade is in progress.
+      <p>
+      An upgrade is in progress if the upgrade {@link Upgrade.Status} is active, e.g.
+      {@link Upgrade.Status#INITIALIZED}, {@link Upgrade.Status#UPGRADED}, etc.
+"
+Version getVersion()#" Returns the currently active software version.
+      <p>
+      The returned version is representative of the version currently in control of the network. When the upgrade
+      transitions to the {@link Upgrade.Status#UPGRADING} state, control over the network is transferred from
+      {@link Upgrade#source()} nodes to {@link Upgrade#target()} nodes, and the version returned by this method
+      represents that change.
+"
+boolean isLocalActive()#" Returns whether the local node is active.
+      <p>
+      The local node will be active if its {@link Version} matches the version returned by {@link #getVersion()}.
+"
+boolean isLocalUpgraded()#" Returns whether the local node is an upgraded node.
+"
+
+UpgradeAdminService.java
+void initialize()#" Initializes an upgrade.
+      <p>
+      This method must be called to initialize an upgrade and prior to physically upgrading any nodes.
+      @throws IllegalStateException if an upgrade is already in progress
+"
+void upgrade()#" Performs an upgrade, transferring device mastership to upgraded nodes.
+      <p>
+      This method transfers mastership from the current version of the software to the upgraded version. Thus,
+      a subset of the nodes in the cluster must have been physically upgraded and restarted prior to executing this
+      phase of the upgrade protocol.
+      @throws IllegalStateException if no upgrade has been initialized
+"
+void commit()#" Commits an upgrade.
+      <p>
+      Completes the upgrade process, committing the new cluster version.
+      @throws IllegalStateException if no upgrade is in progress or not all nodes have been upgraded
+"
+void rollback()#" Rolls back an upgrade.
+      <p>
+      When an upgrade is rolled back, mastership is transferred from upgraded nodes back to nodes running the
+      version of the software prior to the upgrade.
+      @throws IllegalStateException if no upgrade is in progress
+"
+void reset()#" Resets an upgrade.
+      <p>
+      When an upgrade is rolled back, once nodes have been restored to the previos version the upgrade must be reset
+      to restore the upgrade state to {@link Upgrade.Status#INACTIVE}.
+      @throws IllegalStateException if nodes have not been restored to the previous state
+"
+package org.onosproject.net.resource
+
+ResourceService.java
+default Optional<ResourceAllocation> allocate(ResourceConsumer consumer, Resource resource)#" Allocates the specified resource to the specified user.
+"
+List<ResourceAllocation> allocate(ResourceConsumer consumer, List<? extends Resource> resources)#" Transactionally allocates the specified resources to the specified user.
+      All allocations are made when this method succeeds, or no allocation is made when this method fails.
+"
+default List<ResourceAllocation> allocate(ResourceConsumer consumer, Resource... resources)#" Transactionally allocates the specified resources to the specified user.
+      All allocations are made when this method succeeds, or no allocation is made when this method fails.
+"
+default boolean release(ResourceAllocation allocation)#" Releases the specified resource allocation.
+"
+boolean release(List<ResourceAllocation> allocations)#" Transactionally releases the specified resource allocations.
+      All allocations are released when this method succeeded, or no allocation is released when this method fails.
+"
+default boolean release(ResourceAllocation... allocations)#" Transactionally releases the specified resource allocations.
+      All allocations are released when this method succeeded, or no allocation is released when this method fails.
+"
+boolean release(ResourceConsumer consumer)#" Transactionally releases the resources allocated to the specified consumer.
+      All allocations are released when this method succeeded, or no allocation is released when this method fails.
+"
+
+ResourceAdminService.java
+default boolean register(Resource... resources)#" Registers the specified resources.
+      succeeds when each resource is not registered or unallocated.
+"
+boolean register(List<? extends Resource> resources)#" Registers the specified resources.
+      succeeds when each resource is not registered or unallocated.
+"
+default boolean unregister(ResourceId... ids)#" Unregisters the specified resources.
+      succeeds when each resource is not registered or unallocated.
+"
+boolean unregister(List<? extends ResourceId> ids)#" Unregisters the specified resources.
+      succeeds when each resource is not registered or unallocated.
+"
+
+ResourceQueryService.java
+List<ResourceAllocation> getResourceAllocations(ResourceId id)#" Returns resource allocations of the specified resource.
+      If the resource is not allocated, the return value is an empty list.
+"
+<T> Collection<ResourceAllocation> getResourceAllocations(DiscreteResourceId parent, Class<T> cls)#" Returns allocated resources being as children of the specified parent and being the specified resource type.
+      empty collection if no resource is allocated with the subject and type
+"
+Collection<ResourceAllocation> getResourceAllocations(ResourceConsumer consumer)#" Returns resources allocated to the specified consumer.
+"
+Set<Resource> getAvailableResources(DiscreteResourceId parent)#" Returns resources that point available child resources under the specified resource.
+"
+<T> Set<Resource> getAvailableResources(DiscreteResourceId parent, Class<T> cls)#" Returns available resources which are child resources of the specified parent and
+      whose type is the specified type.
+"
+<T> Set<T> getAvailableResourceValues(DiscreteResourceId parent, Class<T> cls)#" Returns available resource values which are the values of the child resource of
+      the specified parent and whose type is the specified type.
+"
+Set<Resource> getRegisteredResources(DiscreteResourceId parent)#" Returns resources registered under the specified resource.
+"
+boolean isAvailable(Resource resource)#" Returns the availability of the specified resource.
+"
+package org.onosproject.net.packet
+
+PacketService.java
+void addProcessor(PacketProcessor processor, int priority)#" Adds the specified processor to the list of packet processors.
+      It will be added into the list in the order of priority. The higher
+      numbers will be processing the packets after the lower numbers.
+      @throws java.lang.IllegalArgumentException if a processor with the
+                                                 given priority already exists
+"
+void removeProcessor(PacketProcessor processor)#" Removes the specified processor from the processing pipeline.
+"
+List<PacketProcessorEntry> getProcessors()#" Returns priority bindings of all registered packet processor entries.
+"
+void requestPackets(TrafficSelector selector, PacketPriority priority,ApplicationId appId)#" Requests that packets matching the given selector are punted from the
+      dataplane to the controller.
+"
+void requestPackets(TrafficSelector selector, PacketPriority priority,ApplicationId appId, Optional<DeviceId> deviceId)#" Requests that packets matching the given selector are punted from the
+      dataplane to the controller. If a deviceId is specified then the
+      packet request is only installed at the device represented by that
+      deviceId.
+"
+void cancelPackets(TrafficSelector selector, PacketPriority priority,ApplicationId appId)#" Cancels previous packet requests for packets matching the given
+      selector to be punted from the dataplane to the controller.
+"
+void cancelPackets(TrafficSelector selector, PacketPriority priority,ApplicationId appId, Optional<DeviceId> deviceId)#" Cancels previous packet requests for packets matching the given
+      selector to be punted from the dataplane to the controller. If a
+      deviceId is specified then the packet request is only withdrawn from
+      the device represented by that deviceId.
+"
+List<PacketRequest> getRequests()#" Returns list of all existing requests ordered by priority.
+"
+void emit(OutboundPacket packet)#" Emits the specified outbound packet onto the network.
+"
+
+PacketProviderService.java
+void processPacket(PacketContext context)#" Submits inbound packet context for processing. This processing will be
+      done synchronously, i.e. run-to-completion.
+"
+package org.onosproject.core
+
+CoreService.java
+#" Name of the core "application".
+"
+ProviderId CORE_PROVIDER_ID = new ProviderId("core", CORE_APP_NAME)#" Identifier of the core "provider".
+"
+Version version()#" Returns the product version.
+"
+Set<ApplicationId> getAppIds()#" Returns the set of currently registered application identifiers.
+"
+ApplicationId getAppId(Short id)#" Returns an existing application id from a given id.
+"
+ApplicationId getAppId(String name)#" Returns an existing application id from a given id.
+"
+ApplicationId registerApplication(String name)#" Registers a new application by its name, which is expected
+      to follow the reverse DNS convention, e.g.
+      {@code org.flying.circus.app}
+"
+ApplicationId registerApplication(String name, Runnable preDeactivate)#" Registers a new application by its name, which is expected
+      to follow the reverse DNS convention, e.g.
+      {@code org.flying.circus.app}, along with its pre-deactivation hook.
+"
+IdGenerator getIdGenerator(String topic)#" Returns an id generator for a given topic.
+"
+
+HybridLogicalClockService.java
+HybridLogicalTime timeNow()#" Returns the current hybrid logical time.
+"
+void recordEventTime(HybridLogicalTime time)#" Records a (receive) event and accordingly makes adjustments to the hybrid logical time.
+"
+default long now()#" Returns the current time derived from the hybrid logical time.
+"
+default WallClockTimestamp wallClockTimestamp()#" Returns the current time as a {@code WallClockTimestamp}.
+"
+
+VersionService.java
+Version version()#" Returns the product version.
+"
+package org.onosproject.event
+
+EventDeliveryService.java
+void setDispatchTimeLimit(long millis)#" Sets the number of millis that an event sink has to process an event.
+"
+long getDispatchTimeLimit()#" Returns the number of millis that an event sink has to process an event.
+"
+
+ListenerService.java
+void addListener(L listener)#" Adds the specified listener.
+"
+void removeListener(L listener)#" Removes the specified listener.
+"
+package org.onosproject.codec
+
+CodecService.java
+Set<Class<?>> getCodecs()#" Returns the set of classes with currently registered codecs.
+"
+<T> JsonCodec<T> getCodec(Class<T> entityClass)#" Returns the JSON codec for the specified entity class.
+"
+<T> void registerCodec(Class<T> entityClass, JsonCodec<T> codec)#" Registers the specified JSON codec for the given entity class.
+"
+void unregisterCodec(Class<?> entityClass)#" Unregisters the JSON codec for the specified entity class.
+"
+package org.onosproject.net.meter
+
+MeterProviderService.java
+void meterOperationFailed(MeterOperation operation,MeterFailReason reason)#" Notifies the core that a meter operaton failed for a
+      specific reason.
+"
+void pushMeterMetrics(DeviceId deviceId,Collection<Meter> meterEntries)#" Pushes the collection of meters observed on the data plane as
+      well as their associated statistics.
+"
+void pushMeterFeatures(DeviceId deviceId,MeterFeatures meterfeatures)#" Pushes the meter features collected from the device.
+"
+void deleteMeterFeatures(DeviceId deviceId)#" Delete meter features collected from the device.
+"
+
+MeterService.java
+Meter submit(MeterRequest meter)#" Adds a meter to the system and performs it installation.
+"
+void withdraw(MeterRequest meter, MeterId meterId)#" Remove a meter from the system and the dataplane.
+"
+Meter getMeter(DeviceId deviceId, MeterId id)#" Fetch the meter by the meter id.
+"
+Collection<Meter> getAllMeters()#" Fetches all the meters.
+"
+Collection<Meter> getMeters(DeviceId deviceId)#" Fetches the meters by the device id.
+"
+MeterId allocateMeterId(DeviceId deviceId)#" Allocates a new meter id in the system.
+      or there are no meter ids available
+"
+void freeMeterId(DeviceId deviceId, MeterId meterId)#" Frees the given meter id.
+"
+package org.onosproject.net.topology
+
+TopologyProviderService.java
+void topologyChanged(GraphDescription graphDescription,List<Event> reasons)#" Signals the core that some aspect of the topology has changed.
+"
+
+TopologyService.java
+Topology currentTopology()#" Returns the current topology descriptor.
+"
+boolean isLatest(Topology topology)#" Indicates whether the specified topology is the latest or not.
+"
+TopologyGraph getGraph(Topology topology)#" Returns the graph view of the specified topology.
+"
+Set<TopologyCluster> getClusters(Topology topology)#" Returns the set of clusters in the specified topology.
+"
+TopologyCluster getCluster(Topology topology, ClusterId clusterId)#" Returns the cluster with the specified ID.
+"
+Set<DeviceId> getClusterDevices(Topology topology, TopologyCluster cluster)#" Returns the set of devices that belong to the specified cluster.
+"
+Set<Link> getClusterLinks(Topology topology, TopologyCluster cluster)#" Returns the set of links that form the specified cluster.
+"
+Set<Path> getPaths(Topology topology, DeviceId src, DeviceId dst)#" Returns the set of all shortest paths, precomputed in terms of hop-count,
+      between the specified source and destination devices.
+"
+Set<Path> getPaths(Topology topology, DeviceId src, DeviceId dst,LinkWeigher weigher)#" Returns the set of all shortest paths, computed using the supplied
+      edge-weight entity, between the specified source and destination devices.
+"
+default Set<Path> getKShortestPaths(Topology topology,DeviceId src, DeviceId dst,LinkWeigher weigher,int maxPaths)#" Returns the k-shortest paths between source and
+      destination devices.
+      The first {@code maxPaths} paths will be returned
+      in ascending order according to the provided {@code weigher}
+"
+default Stream<Path> getKShortestPaths(Topology topology,DeviceId src, DeviceId dst)#" Returns the k-shortest paths between source and
+      destination devices.
+"
+default Stream<Path> getKShortestPaths(Topology topology,DeviceId src, DeviceId dst,LinkWeigher weigher)#" Returns the k-shortest paths between source and
+      destination devices.
+"
+Set<DisjointPath> getDisjointPaths(Topology topology, DeviceId src, DeviceId dst)#" Returns the set of all disjoint shortest path pairs, precomputed in terms of hop-count,
+      between the specified source and destination devices.
+"
+Set<DisjointPath> getDisjointPaths(Topology topology, DeviceId src, DeviceId dst,LinkWeigher weigher)#" Returns the set of all disjoint shortest path pairs, computed using the supplied
+      edge-weight entity, between the specified source and destination devices.
+"
+Set<DisjointPath> getDisjointPaths(Topology topology, DeviceId src, DeviceId dst,Map<Link, Object> riskProfile)#" Returns the set of all disjoint shortest path pairs, precomputed in terms of hop-count,
+      between the specified source and destination devices.
+"
+Set<DisjointPath> getDisjointPaths(Topology topology, DeviceId src, DeviceId dst,LinkWeigher weigher, Map<Link, Object> riskProfile)#" Returns the set of all disjoint shortest path pairs, precomputed in terms of hop-count,
+      between the specified source and destination devices.
+"
+boolean isInfrastructure(Topology topology, ConnectPoint connectPoint)#" Indicates whether the specified connection point is part of the network
+      infrastructure or part of network edge.
+"
+boolean isBroadcastPoint(Topology topology, ConnectPoint connectPoint)#" Indicates whether broadcast is allowed for traffic received on the
+      specified connection point.
+"
+
+PathAdminService.java
+void setDefaultLinkWeigher(LinkWeigher linkWeigher)#" Sets the specified link-weight function to be used as a default.
+      If null is specified, the builtin default hop-count link-weight will be
+      used.
+"
+void setDefaultGraphPathSearch(GraphPathSearch<TopologyVertex, TopologyEdge> graphPathSearch)#" Sets the specified graph path search algorightm to be used as a default.
+      If null is specified, the builtin default all-shortest-paths Dijkstra
+      algorithm will be used.
+"
+
+PathService.java
+Set<Path> getPaths(ElementId src, ElementId dst)#" Returns the set of all shortest paths between the specified source and
+      destination elements. The path is computed using the default edge-weight
+      function, which by default is hop-count.
+"
+Set<Path> getPaths(ElementId src, ElementId dst, LinkWeigher weigher)#" Returns the set of all shortest paths between the specified source and
+      destination network elements.  The path is computed using the supplied
+      edge-weight function.
+"
+default Stream<Path> getKShortestPaths(ElementId src, ElementId dst)#" Returns the k-shortest paths between source and
+      destination devices.
+"
+default Stream<Path> getKShortestPaths(ElementId src, ElementId dst,LinkWeigher weigher)#" Returns the k-shortest paths between source and
+      destination devices.
+"
+Set<DisjointPath> getDisjointPaths(ElementId src, ElementId dst)#" Returns the set of all disjoint shortest path pairs between the
+      specified source and destination elements. The path is computed using
+      the default edge-weight function, which by default is hop-count.
+"
+Set<DisjointPath> getDisjointPaths(ElementId src, ElementId dst,LinkWeigher weigher)#" Returns the set of all disjoint shortest path pairs between the
+      specified source and destination elements. The path is computed using
+      the supplied edge-weight function.
+"
+Set<DisjointPath> getDisjointPaths(ElementId src, ElementId dst,Map<Link, Object> riskProfile)#" Returns the set of all disjoint shortest path pairs between the
+      specified source and destination elements and taking into consideration
+      the provided risk profile. The path is computed using the default
+      edge-weight function, which by default is hop-count.
+"
+Set<DisjointPath> getDisjointPaths(ElementId src, ElementId dst,LinkWeigher weigher,Map<Link, Object> riskProfile)#" Returns the set of all disjoint shortest path pairs between the
+      specified source and destination elements and taking into consideration
+      the provided risk profile. The path is computed using the supplied
+      edge-weight function.
+"
+package org.onosproject.net.config
+
+NetworkConfigService.java
+Set<Class> getSubjectClasses()#" Returns the set of subject classes for which configuration may be
+      available.
+"
+SubjectFactory getSubjectFactory(String subjectClassKey)#" Returns the subject factory with the specified key.
+"
+SubjectFactory getSubjectFactory(Class subjectClass)#" Returns the subject factory for the specified class.
+"
+Class<? extends Config> getConfigClass(String subjectClassKey, String configKey)#" Returns the configuration class with the specified key.
+"
+<S> Set<S> getSubjects(Class<S> subjectClass)#" Returns the set of subjects for which some configuration is available.
+"
+<S, C extends Config<S>> Set<S> getSubjects(Class<S> subjectClass, Class<C> configClass)#" Returns the set of subjects for which the specified configuration is
+      available.
+"
+<S> Set<? extends Config<S>> getConfigs(S subject)#" Returns all configurations for the specified subject.
+"
+<S, C extends Config<S>> C getConfig(S subject, Class<C> configClass)#" Returns the configuration for the specified subject and configuration
+      class if one is available; null otherwise.
+"
+<S, C extends Config<S>> C addConfig(S subject, Class<C> configClass)#" Creates a new configuration for the specified subject and configuration
+      class. If one already exists, it is simply returned.
+"
+<S, C extends Config<S>> C applyConfig(S subject, Class<C> configClass,JsonNode json)#" Applies configuration for the specified subject and configuration
+      class using the raw JSON node. If configuration already exists, it
+      will be updated.
+      @throws IllegalArgumentException if the supplied JSON node contains
+                                       invalid data
+"
+<S, C extends Config<S>> C applyConfig(String subjectClassKey, S subject,String configKey, JsonNode json)#" Applies configuration for the specified subject and configuration
+      key using the raw JSON object. If configuration already exists, it
+      will be updated. If the specified configuration key does not yet have
+      a registered class associated with it, the configuration will be pending
+      and null value will be returned. Once the backing configuration class is
+      registered, the configuration will be validated and accepted.
+                                       a registered class yet
+      @throws IllegalArgumentException if the supplied JSON node contains
+                                       invalid data
+"
+<S, C extends Config<S>> void removeConfig(S subject, Class<C> configClass)#" Clears any configuration for the specified subject and configuration
+      class. If one does not exist, this call has no effect.
+"
+<S> void removeConfig(String subjectClassKey, S subject, String configKey)#" Clears any configuration for the specified subject and configuration
+      key. If one does not exist, this call has no effect.
+"
+<S> void removeConfig(S subject)#" Clears the  configuration including queued based on the subject.
+      If does not exists this call has no effect.
+"
+<S> void removeConfig()#" Clears the complete configuration including queued.
+      If does not exists this call has no effect.
+"
+package org.onosproject.net.neighbour
+
+NeighbourResolutionService.java
+void registerNeighbourHandler(ConnectPoint connectPoint, NeighbourMessageHandler handler,ApplicationId appId)#" Registers a neighbour message handler for all neighbour messages
+      incoming on the given connect point.
+"
+void registerNeighbourHandler(Interface intf, NeighbourMessageHandler handler,ApplicationId appId)#" Registers a neighbour message handler for all neighbour messages incoming
+      on the given interface. Neighbour packets must match the fields of the
+      interface in order to be handled by this message handler.
+"
+void unregisterNeighbourHandler(ConnectPoint connectPoint, NeighbourMessageHandler handler,ApplicationId appId)#" Unregisters a neighbour message handler that was assigned to a connect
+      point.
+"
+void unregisterNeighbourHandler(Interface intf, NeighbourMessageHandler handler,ApplicationId appId)#" Unregisters a neighbour message handler that was assigned to an interface.
+"
+void unregisterNeighbourHandlers(ApplicationId appId)#" Unregisters all neighbour handlers that were registered by the given
+      application.
+"
+Map<ConnectPoint, Collection<NeighbourHandlerRegistration>> getHandlerRegistrations()#" Gets the neighbour message handlers that have been registered with the
+      service.
+"
+package org.onosproject.net.driver
+
+DriverAdminService.java
+Set<DriverProvider> getProviders()#" Returns the set of driver providers currently registered.
+"
+void registerProvider(DriverProvider provider)#" Registers the specified driver provider.
+"
+void unregisterProvider(DriverProvider provider)#" Unregisters the specified driver provider.
+"
+
+DriverService.java
+Set<Driver> getDrivers()#" Returns the overall set of drivers being provided.
+"
+Set<Driver> getDrivers(Class<? extends Behaviour> withBehaviour)#" Returns the set of drivers which support the specified behaviour.
+"
+Driver getDriver(DeviceId deviceId)#" Returns the driver for the specified device. If the network configuration
+      for the specified device carries the {@code driver} property or if the
+      device carries the {@code driver} annotation, they will be used to look-up
+      the driver, in respective order.
+      Otherwise, the device manufacturer, hardware and software version
+      attributes are used to look-up the driver. First using their literal
+      values and if no driver is found, using ERE matching against the
+      driver manufacturer, hardware and software version fields.
+      @throws org.onlab.util.ItemNotFoundException if device or driver for it
+                                                   are not found
+"
+DriverHandler createHandler(DeviceId deviceId, String... credentials)#" Creates a new driver handler for interacting with the specified device.
+      The driver is looked-up using the same semantics as
+      {@link #getDriver(DeviceId)} method.
+      @throws org.onlab.util.ItemNotFoundException if device or driver for it
+                                                   are not found
+"
+package org.onosproject.rest
+
+ApiDocService.java
+void register(ApiDocProvider provider)#" Registers the specified REST API documentation provider.
+"
+void unregister(ApiDocProvider provider)#" Unregisters the specified REST API documentation provider.
+"
+Set<ApiDocProvider> getDocProviders()#" Returns the set of all registered REST API documentation providers.
+"
+ApiDocProvider getDocProvider(String key)#" Returns the specified REST API documentation provider with the specified
+      key.
+"
+package org.onosproject.net.group
+
+GroupService.java
+void addGroup(GroupDescription groupDesc)#" Creates a group in the specified device with the provided buckets.
+      This API provides an option for application to associate a cookie
+      while creating a group, so that applications can look-up the
+      groups based on the cookies. These Groups will be retained by
+      the core system and re-applied if any groups found missing in the
+      device when it reconnects. This API would immediately return after
+      submitting the request locally or to a remote Master controller
+      instance. As a response to this API invocation, GROUP_ADDED or
+      GROUP_ADD_FAILED notifications would be provided along with cookie
+      depending on the result of the operation on the device in the
+      data plane. The caller may also use "getGroup" API to get the
+      Group object created as part of this request.
+"
+Group getGroup(DeviceId deviceId, GroupKey appCookie)#" Returns a group object associated to an application cookie.
+      NOTE1: The presence of group object in the system does not
+      guarantee that the "group" is actually created in device.
+      GROUP_ADDED notification would confirm the creation of
+      this group in data plane.
+                    NULL if Group is not found for the provided cookie
+"
+void addBucketsToGroup(DeviceId deviceId,GroupKey oldCookie,GroupBuckets buckets,GroupKey newCookie,ApplicationId appId)#" Appends buckets to existing group. The caller can optionally
+      associate a new cookie during this updation. GROUP_UPDATED or
+      GROUP_UPDATE_FAILED notifications would be provided along with
+      cookie depending on the result of the operation on the device.
+"
+void removeBucketsFromGroup(DeviceId deviceId,GroupKey oldCookie,GroupBuckets buckets,GroupKey newCookie,ApplicationId appId)#" Removes buckets from existing group. The caller can optionally
+      associate a new cookie during this updation. GROUP_UPDATED or
+      GROUP_UPDATE_FAILED notifications would be provided along with
+      cookie depending on the result of the operation on the device.
+"
+default void setBucketsForGroup(DeviceId deviceId,GroupKey oldCookie,GroupBuckets buckets,GroupKey newCookie,ApplicationId appId)#" Set buckets for an existing group. The caller can optionally
+      associate a new cookie during this updation. GROUP_UPDATED or
+      GROUP_UPDATE_FAILED notifications would be provided along with
+      cookie depending on the result of the operation on the device.
+      This operation overwrites the previous group buckets entirely.
+"
+void purgeGroupEntries(DeviceId deviceId)#" Purges all the group entries on the specified device.
+"
+default void purgeGroupEntries()#" Purges all group entries.
+"
+void removeGroup(DeviceId deviceId, GroupKey appCookie, ApplicationId appId)#" Deletes a group associated to an application cookie.
+      GROUP_DELETED or GROUP_DELETE_FAILED notifications would be
+      provided along with cookie depending on the result of the
+      operation on the device.
+"
+Iterable<Group> getGroups(DeviceId deviceId, ApplicationId appId)#" Retrieves all groups created by an application in the specified device
+      as seen by current controller instance.
+"
+Iterable<Group> getGroups(DeviceId deviceId)#" Returns all groups associated with the given device.
+"
+
+GroupProviderService.java
+void groupOperationFailed(DeviceId deviceId, GroupOperation operation)#" Notifies core if any failure from data plane during group operations.
+"
+void pushGroupMetrics(DeviceId deviceId, Collection<Group> groupEntries)#" Pushes the collection of group detected in the data plane along
+      with statistics.
+"
+void notifyOfFailovers(Collection<Group> failoverGroups)#" Notifies store of group failovers.
+"
+package org.onosproject.net.host
+
+HostProbingProviderService.java
+MacAddress addProbingHost(Host host, ConnectPoint connectPoint, ProbeMode probeMode,MacAddress probeMac, int retry)#" Notifies HostProbeStore the beginning of pending host location verification and
+      retrieves the unique MAC address for the probe.
+                      Null if this is the very first probe and the probeMac is to-be-generated
+"
+void removeProbingHost(MacAddress probeMac)#" Notifies HostProbeStore the end of pending host location verification.
+"
+
+HostProviderService.java
+void hostDetected(HostId hostId, HostDescription hostDescription, boolean replaceIps)#" Notifies the core when a host has been detected on a network along with
+      information that identifies the host location.
+"
+void hostVanished(HostId hostId)#" Notifies the core when a host is no longer detected on a network.
+"
+void removeIpFromHost(HostId hostId, IpAddress ipAddress)#" Notifies the core when an IP is no longer associated with a host.
+"
+default void addLocationToHost(HostId hostId, HostLocation location)#" Notifies the core when a location is associated with a host.
+"
+void removeLocationFromHost(HostId hostId, HostLocation location)#" Notifies the core when a location is no longer associated with a host.
+"
+
+HostService.java
+int getHostCount()#" Returns the number of end-station hosts known to the system.
+"
+Iterable<Host> getHosts()#" Returns a collection of all end-station hosts.
+"
+Host getHost(HostId hostId)#" Returns the host with the specified identifier.
+"
+Set<Host> getHostsByVlan(VlanId vlanId)#" Returns the set of hosts that belong to the specified VLAN.
+"
+Set<Host> getHostsByMac(MacAddress mac)#" Returns the set of hosts that have the specified MAC address.
+"
+Set<Host> getHostsByIp(IpAddress ip)#" Returns the set of hosts that have the specified IP address.
+"
+Set<Host> getConnectedHosts(ConnectPoint connectPoint)#" Returns the set of hosts whose most recent location is the specified
+      connection point.
+"
+Set<Host> getConnectedHosts(DeviceId deviceId)#" Returns the set of hosts whose most recent location is the specified
+      infrastructure device.
+"
+void startMonitoringIp(IpAddress ip)#" Requests the host service to monitor hosts with the given IP address and
+      notify listeners of changes.
+"
+void stopMonitoringIp(IpAddress ip)#" Stops the host service from monitoring an IP address.
+"
+void requestMac(IpAddress ip)#" Requests the host service to resolve the MAC address for the given IP
+      address. This will trigger a notification to the host listeners if the MAC
+      address is found.
+"
+
+HostProbingService.java
+void probeHost(Host host, ConnectPoint connectPoint, ProbeMode probeMode)#" Probes given host on given location.
+"
+
+HostAdminService.java
+void removeHost(HostId hostId)#" Removes the end-station host with the specified identifier.
+"
+package org.onosproject.net.flow
+
+FlowRuleService.java
+#" The topic used for obtaining globally unique ids.
+"
+int getFlowRuleCount()#" Returns the number of flow rules in the system.
+"
+default int getFlowRuleCount(DeviceId deviceId)#" Returns the number of flow rules for the given device.
+"
+Iterable<FlowEntry> getFlowEntries(DeviceId deviceId)#" Returns the collection of flow entries applied on the specified device.
+      This will include flow rules which may not yet have been applied to
+      the device.
+"
+default Iterable<FlowEntry> getFlowEntriesByLiveType(DeviceId deviceId,FlowEntry.FlowLiveType liveType)#" Returns a list of rules filtered by device id and flow live type.
+"
+default Iterable<FlowEntry> getFlowEntriesByState(DeviceId deviceId,FlowEntry.FlowEntryState flowState)#" Returns a list of rules filtered by device id and flow state.
+"
+void applyFlowRules(FlowRule... flowRules)#" Applies the specified flow rules onto their respective devices. These
+      flow rules will be retained by the system and re-applied anytime the
+      device reconnects to the controller.
+"
+void purgeFlowRules(DeviceId deviceId)#" Purges all the flow rules on the specified device.
+"
+void removeFlowRules(FlowRule... flowRules)#" Removes the specified flow rules from their respective devices. If the
+      device is not presently connected to the controller, these flow will
+      be removed once the device reconnects.
+"
+void removeFlowRulesById(ApplicationId appId)#" Removes all rules submitted by a particular application.
+"
+@DeprecatedIterable<FlowRule> getFlowRulesById(ApplicationId id)#" Returns a list of rules with this application ID.
+"
+Iterable<FlowEntry> getFlowEntriesById(ApplicationId id)#" Returns a list of rules with this application ID.
+"
+Iterable<FlowRule> getFlowRulesByGroupId(ApplicationId appId, short groupId)#" Returns a list of rules filtered by application and group id.
+      <p>
+      Note that the group concept here is simply a logical grouping of flows.
+      This is not the same as a group in the
+      {@link org.onosproject.net.group.GroupService}, and this method will not
+      return flows that are mapped to a particular {@link org.onosproject.net.group.Group}.
+      <p>
+"
+void apply(FlowRuleOperations ops)#" Applies a batch operation of FlowRules.
+"
+Iterable<TableStatisticsEntry> getFlowTableStatistics(DeviceId deviceId)#" Returns the collection of flow table statistics of the specified device.
+"
+default long getActiveFlowRuleCount(DeviceId deviceId)#" Returns number of flow rules in ADDED state for specified device.
+"
+
+FlowRuleProviderService.java
+void flowRemoved(FlowEntry flowEntry)#" Signals that a flow rule that was previously installed has been removed.
+"
+void pushFlowMetrics(DeviceId deviceId, Iterable<FlowEntry> flowEntries)#" Pushes the collection of flow entries currently applied on the given
+      device.
+"
+void pushFlowMetricsWithoutFlowMissing(DeviceId deviceId, Iterable<FlowEntry> flowEntries)#" Pushes the collection of flow entries currently applied on the given
+      device without flowMissing process.
+"
+void pushTableStatistics(DeviceId deviceId, List<TableStatisticsEntry> tableStatsEntries)#" Pushes the collection of table statistics entries currently extracted
+      from the given device.
+"
+void batchOperationCompleted(long batchId, CompletedBatchOperation operation)#" Indicates to the core that the requested batch operation has
+      been completed.
+"
+package org.onosproject.ui.model
+
+ServiceBundle.java
+UiTopoLayoutService layout()#" Reference to a UI Topology Layout service implementation.
+"
+ClusterService cluster()#" Reference to a cluster service implementation.
+"
+MastershipService mastership()#" Reference to a mastership service implementation.
+"
+RegionService region()#" Reference to a region service implementation.
+"
+DeviceService device()#" Reference to a device service implementation.
+"
+LinkService link()#" Reference to a link service implementation.
+"
+HostService host()#" Reference to a host service implementation.
+"
+IntentService intent()#" Reference to a intent service implementation.
+"
+FlowRuleService flow()#" Reference to a flow service implementation.
+"
+package org.onosproject.store.primitives
+
+PartitionService.java
+int getNumberOfPartitions()#" Returns the total number of partitions.
+"
+Set<NodeId> getConfiguredMembers(PartitionId partitionId)#" Returns the set of controller nodes configured to be members of a partition.
+"
+@DeprecatedSet<NodeId> getActiveMembersMembers(PartitionId partitionId)#" Returns the set of controller nodes that are the current active members of a partition.
+      @deprecated since 1.14
+"
+Set<PartitionId> getAllPartitionIds()#" Returns the identifiers of all partitions.
+"
+@DeprecatedDistributedPrimitiveCreator getDistributedPrimitiveCreator(PartitionId partitionId)#" Returns a DistributedPrimitiveCreator that can create primitives hosted on a partition.
+      @deprecated since 1.14
+"
+
+PartitionAdminService.java
+List<PartitionInfo> partitionInfo()#" Returns the {@link PartitionInfo information} for existing partitions.
+"
+List<PartitionClientInfo> partitionClientInfo()#" Returns the {@link PartitionClientInfo information} for partition clients.
+"
+package org.onosproject.net.statistic
+
+StatisticService.java
+Load load(Link link)#" Obtain the load for a the ingress to the given link.
+"
+Load load(ConnectPoint connectPoint)#" Obtain the load for the given port.
+"
+Link max(Path path)#" Find the most loaded link along a path.
+"
+Link min(Path path)#" Find the least loaded link along a path.
+"
+FlowRule highestHitter(ConnectPoint connectPoint)#" Returns the highest hitter (a flow rule) for a given port, ie. the
+      flow rule which is generating the most load.
+"
+Load load(Link link, ApplicationId appId, Optional<GroupId> groupId)#" Obtain the load for a the ingress to the given link used by
+      the specified application ID and group ID.
+"
+
+FlowStatisticService.java
+Map<ConnectPoint, SummaryFlowEntryWithLoad> loadSummary(Device device)#" Obtain the summary load list for the device with the given link.
+"
+SummaryFlowEntryWithLoad loadSummary(Device device, PortNumber pNumber)#" Obtain the summary load for the device with the given link or port.
+"
+Map<ConnectPoint, List<FlowEntryWithLoad>> loadAllByType(Device device,FlowEntry.FlowLiveType liveType,Instruction.Type instType)#" Obtain the set of the flow type and load list for the device with the given link.
+"
+List<FlowEntryWithLoad> loadAllByType(Device device,PortNumber pNumber,FlowEntry.FlowLiveType liveType,Instruction.Type instType)#" Obtain the flow type and load list for the device with the given link or port.
+"
+Map<ConnectPoint, List<FlowEntryWithLoad>> loadTopnByType(Device device,FlowEntry.FlowLiveType liveType,Instruction.Type instType,int topn)#" Obtain the set of the flow type and load topn list for the device with the given link.
+"
+List<FlowEntryWithLoad> loadTopnByType(Device device,PortNumber pNumber,FlowEntry.FlowLiveType liveType,Instruction.Type instType,int topn)#" Obtain the flow type and load topn list for the device with the given link or port.
+"
+package org.onosproject.store.cluster.messaging
+
+MessagingService.java
+CompletableFuture<Void> sendAsync(Endpoint ep, String type, byte[] payload)#" Sends a message asynchronously to the specified communication end point.
+      The message is specified using the type and payload.
+"
+CompletableFuture<byte[]> sendAndReceive(Endpoint ep, String type, byte[] payload)#" Sends a message asynchronously and expects a response.
+"
+CompletableFuture<byte[]> sendAndReceive(Endpoint ep, String type, byte[] payload, Executor executor)#" Sends a message synchronously and expects a response.
+"
+void registerHandler(String type, BiConsumer<Endpoint, byte[]> handler, Executor executor)#" Registers a new message handler for message type.
+"
+void registerHandler(String type, BiFunction<Endpoint, byte[], byte[]> handler, Executor executor)#" Registers a new message handler for message type.
+"
+void registerHandler(String type, BiFunction<Endpoint, byte[], CompletableFuture<byte[]>> handler)#" Registers a new message handler for message type.
+"
+void unregisterHandler(String type)#" Unregister current handler, if one exists for message type.
+"
+
+ClusterCommunicationService.java
+@Deprecatedvoid addSubscriber(MessageSubject subject, ClusterMessageHandler subscriber, ExecutorService executor)#" Adds a new subscriber for the specified message subject.
+      @deprecated in Cardinal Release
+"
+<M> void broadcast(M message,MessageSubject subject,Function<M, byte[]> encoder)#" Broadcasts a message to all controller nodes.
+"
+<M> void broadcastIncludeSelf(M message,MessageSubject subject,Function<M, byte[]> encoder)#" Broadcasts a message to all controller nodes including self.
+"
+<M> CompletableFuture<Void> unicast(M message,MessageSubject subject,Function<M, byte[]> encoder,NodeId toNodeId)#" Sends a message to the specified controller node.
+"
+<M> void multicast(M message,MessageSubject subject,Function<M, byte[]> encoder,Set<NodeId> nodeIds)#" Multicasts a message to a set of controller nodes.
+"
+<M, R> CompletableFuture<R> sendAndReceive(M message,MessageSubject subject,Function<M, byte[]> encoder,Function<byte[], R> decoder,NodeId toNodeId)#" Sends a message and expects a reply.
+"
+<M, R> void addSubscriber(MessageSubject subject,Function<byte[], M> decoder,Function<M, R> handler,Function<R, byte[]> encoder,Executor executor)#" Adds a new subscriber for the specified message subject.
+"
+<M, R> void addSubscriber(MessageSubject subject,Function<byte[], M> decoder,Function<M, CompletableFuture<R>> handler,Function<R, byte[]> encoder)#" Adds a new subscriber for the specified message subject.
+"
+<M> void addSubscriber(MessageSubject subject,Function<byte[], M> decoder,Consumer<M> handler,Executor executor)#" Adds a new subscriber for the specified message subject.
+"
+void removeSubscriber(MessageSubject subject)#" Removes a subscriber for the specified message subject.
+"
